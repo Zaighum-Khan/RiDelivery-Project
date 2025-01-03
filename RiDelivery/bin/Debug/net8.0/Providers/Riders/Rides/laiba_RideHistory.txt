@@ -1,0 +1,14 @@
+Ride Date: 3/1/2025 12:26:47 ب.د.
+Customer's Name: rafey
+Pick-Up Location: bahria
+Drop-Off Location: manzil
+Distance: 10 km
+Total Fare: Rs100
+--------------------------------------------------
+Ride Date: 3/1/2025 12:29:00 ب.د.
+Customer's Name: rafey
+Pick-Up Location: bahria
+Drop-Off Location: manzil
+Distance: 10 km
+Total Fare: Rs100
+--------------------------------------------------

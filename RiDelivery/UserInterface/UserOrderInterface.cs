@@ -11,10 +11,11 @@ namespace RiDelivery
         public static void OrderInterface(string uName)
         {
             Console.Clear();
-            Console.WriteLine("Restaurant or Grocery Store?");
+            Console.WriteLine("1. Restaurant \n2. Grocery Store");
+            Console.Write("\nEnter your choice: ");
             
             string choice = Console.ReadLine() ?? "";
-            if(choice.Equals("Restaurant", StringComparison.OrdinalIgnoreCase))
+            if(choice.Equals("1", StringComparison.OrdinalIgnoreCase))
             {
 
             string fName = "Providers/Restaurants";
@@ -26,7 +27,7 @@ namespace RiDelivery
             }
             menuReader(uName);
             }
-            else if (choice.Equals("Grocery Store", StringComparison.OrdinalIgnoreCase))
+            else if (choice.Equals("2", StringComparison.OrdinalIgnoreCase))
             {
                 string fName = "Shops";
                 string[] files = Directory.GetFiles($"Providers/{fName}");
@@ -40,6 +41,8 @@ namespace RiDelivery
             else
             {
                 Console.WriteLine("Invalid choice. Please try again.");
+                Thread.Sleep(1000);
+                OrderInterface(uName);
             }
         }
 
@@ -184,7 +187,7 @@ namespace RiDelivery
 
         public static void customerReceiptGroceryShop(string shopName , string uName)
         {
-            string fname = "Providers/SOwners/" + shopName + ".txt";
+            string fname = "Providers/Shops/" + shopName + ".txt";
             StreamReader sr = new StreamReader(fname);
 
             string ans;
@@ -326,7 +329,7 @@ namespace RiDelivery
         public static void ShopOrderHistoryForSOwner(string userName, string shopName, List<(string itemName, int itemPrice, int quantity)> orderDetails, int totalBill)
         {
             
-            string fName = $"Providers/ROwners/Orders/{shopName}_OrderHistory.txt";
+            string fName = $"Providers/SOwners/Orders/{shopName}_OrderHistory.txt";
             using (StreamWriter sw = new StreamWriter(fName, true))
             {
                 sw.WriteLine($"Order Date: {DateTime.Now}");

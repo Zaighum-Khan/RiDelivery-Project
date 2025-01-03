@@ -1,0 +1,3 @@
+Lays,50
+Malboro,30
+gand,0

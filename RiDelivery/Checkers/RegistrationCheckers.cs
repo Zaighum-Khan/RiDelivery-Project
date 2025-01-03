@@ -35,7 +35,7 @@ namespace RiDelivery
         { 
                 Console.Write("Please Enter Your E-mail : ");
                 string mail = Console.ReadLine() ?? "";
-                if (!mail.Contains("@") && !mail.Contains(".com"))
+                if (!mail.Contains("@") || !mail.Contains(".com"))
                 {
                     Console.WriteLine("Invalid Email Address! Email must contain '@' and '.com'");
                     emailChecker();

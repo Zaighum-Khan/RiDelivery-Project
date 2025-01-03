@@ -32,6 +32,11 @@ namespace RiDelivery
             while (true)
             {
                 string userName = RegistrationCheckers.userNameChecker();
+                if(File.Exists($"Users/{userName}.txt"))
+                {
+                    Console.WriteLine("User Name already Taken!\nEnter any other User Name.");
+                    continue;
+                }
 
                 string phoneNumber = RegistrationCheckers.numberChecker();
 
@@ -43,21 +48,37 @@ namespace RiDelivery
 
                 string password = RegistrationCheckers.passwordChecker();
 
+                Console.Write("Please enter Your Address : ");
+                string address = Console.ReadLine() ?? "Null";
+
+                string age;
+                while(true)
+                {
+                    Console.Write("Please Enter Your Age : ");
+                    age = Console.ReadLine() ?? "0";
+                    if(!RegistrationCheckers.IsDigitsOnly(age))
+                    {
+                        Console.WriteLine("Age must be a number.");
+                        continue;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
                 if (!File.Exists(filepath))
                 {
                     using (StreamWriter sw = new StreamWriter(filepath, true))
                     {
-                        sw.WriteLine($"{email},{password},{phoneNumber}");
+                        sw.WriteLine($"{email},{password},{phoneNumber},{userName},{address},{age}");
                     }
                     Console.WriteLine("\nYou are Registered Successfully !! Now Login to Continue.");
                     Thread.Sleep(1500);
                     Menu.LoginMenu();
                     break;
                 }
-                else
-                {
-                    Console.WriteLine("User Name already Taken!\nEnter any other User Name.");
-                }
+
             }
         }
 

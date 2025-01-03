@@ -1,0 +1,13 @@
+Order Date: 3/1/2025 11:57:38 ق.د.
+Customer's Name: rafey
+Restaurant: haji Foods
+Items Ordered:
+Total Bill: Rs0
+--------------------------------------------------
+Order Date: 3/1/2025 11:58:46 ق.د.
+Customer's Name: rafey
+Restaurant: haji foods
+Items Ordered:
+Item Name: lays, Quantity: 2, Price: Rs50
+Total Bill: Rs100
+--------------------------------------------------

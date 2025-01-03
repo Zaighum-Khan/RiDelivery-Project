@@ -9,6 +9,7 @@ namespace RiDelivery
     {
         public static void RideInterface(string uName)
         {
+            Console.Clear();
             string vehicleType = "";
             Console.Write("Enter Your Pick-Up Location : ");
             string pickUp = Console.ReadLine() ?? "";
@@ -17,17 +18,19 @@ namespace RiDelivery
 
             string fName = "Providers/Riders";
             string[] files = Directory.GetFiles(fName);
-            Console.WriteLine("Files in directory:");
+            Console.Clear();
+            Console.WriteLine("Available Riders:");
             foreach (string file in files)
             {
                 Console.WriteLine(Path.GetFileNameWithoutExtension(file));
+                Console.WriteLine("");
                 StreamReader sr1 = new StreamReader(file);
                 {  
                     string line;
                     while ((line = sr1.ReadLine()) != null)
                     {
                         string[] parts = line.Split(',');
-                        Console.WriteLine($"\tVehicle Type: {parts[4]} \t\tVehicle Number: {parts[5]}");
+                        Console.WriteLine($"\tVehicle Type: {parts[4]} \t\tVehicle Number: {parts[5]}\n");
                     }
                 }
             }
@@ -47,18 +50,28 @@ namespace RiDelivery
                         string[] parts = line.Split(',');
                         vehicleType = parts[4];
                         Console.WriteLine($"\tRider's Name : {riderName} \t\tContact : {parts[2]}");
-                        Console.WriteLine($"Confirm Ride? (Y/N)");
-                        string ans = Console.ReadLine() ?? "";
+                        string ans;
+                        do
+                        {
+                            Console.WriteLine($"Confirm Ride? (Y/N)");
+                            ans = Console.ReadLine() ?? "";
                         if (ans.Equals("N", StringComparison.OrdinalIgnoreCase))
                         {
                             Console.WriteLine("Ride Cancelled.");
+                            Thread.Sleep(1000);
+                            RideInterface(uName);
                             return;
                         }
                         else if (!ans.Equals("Y", StringComparison.OrdinalIgnoreCase))
                         {
                             Console.WriteLine("Invalid Choice. Please try again.");
-                            return;
                         }
+                        else
+                        {
+                            break;
+                        }
+                        }
+                        while(ans != "y" || ans != "n");
                     }
                 }
 
@@ -75,13 +88,18 @@ namespace RiDelivery
                 }
                 double totalFare = distance * ratePerKm;
 
+                Console.Clear();
                 Console.WriteLine($"\nTotal Fare: {totalFare:C}");
+                Console.WriteLine("Enjoy your Ride!");
+                Thread.Sleep(1000);
                 RideHistoryforUser(uName, riderName, pickUp, dropOff, distance, totalFare);
                 RideHistoryforRider(riderName, uName, pickUp, dropOff, distance, totalFare);
             }
             else
             {
                 Console.WriteLine("Entered Rider is not available. Please select from the Given list only.");
+                Thread.Sleep(1000);
+                RideInterface(uName);
             }
         }
 

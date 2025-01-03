@@ -10,56 +10,56 @@ namespace RiDelivery
         public static void userInterface(string uName)
         {
 
-        
-        Console.Clear();
-        Console.WriteLine("Welcome to RiDelivery!");
-        Console.WriteLine("1. Ride \n2. Order \n3. Exit \n4. Go Back \n5. Check History \n6. Change Password");
-        Console.Write("\nEnter your choice: ");
-        string choice = Console.ReadLine() ?? "";
+
+            Console.Clear();
+            Console.WriteLine("Welcome to RiDelivery!");
+            Console.WriteLine("1. Ride \n2. Order \n3. Exit \n4. Go Back \n5. Check History \n6. Change Password");
+            Console.Write("\nEnter your choice: ");
+            string choice = Console.ReadLine() ?? "";
             switch (choice)
             {
-            case "1":
-                UserRideInterface.RideInterface(uName);
-                break;
-            case "2":
-                UserOrderInterface.OrderInterface(uName);
-                break;
-            case "3": 
-                Console.WriteLine("Exiting the program. Goodbye!");
-                break;
-            case "4":
-                Menu.LoginMenu();
-                break;
-            case "5":
-            Console.Clear();
-                Console.Write("1. Order History \n2. Ride History \n3. Go Back \n\nEnter your choice: ");
-                string ch = Console.ReadLine() ?? "";
-                switch (ch)
-                {
-                    case "1":
-                        userOrderHistory(uName);
-                        break;
-                    case "2":
-                        userRideHistory(uName);
-                        break;
-                    case "3":
-                        userInterface(uName);
-                        break;
-                    default:
-                        Console.WriteLine("Invalid choice. Please try again.");
-                        Thread.Sleep(1000);
-                        userInterface(uName);
-                        break;
-                }
-                break;
-            case "6":
-                passChanger.changePass($"Users/{uName}.txt");
-                break;
-            default:
-                Console.WriteLine("Invalid choice. Please try again.");
-                Thread.Sleep(1000);
-                userInterface(uName);
-                break;
+                case "1":
+                    UserRideInterface.RideInterface(uName);
+                    break;
+                case "2":
+                    UserOrderInterface.OrderInterface(uName);
+                    break;
+                case "3":
+                    Console.WriteLine("Exiting the program. Goodbye!");
+                    break;
+                case "4":
+                    Menu.LoginMenu();
+                    break;
+                case "5":
+                    Console.Clear();
+                    Console.Write("1. Order History \n2. Ride History \n3. Go Back \n\nEnter your choice: ");
+                    string ch = Console.ReadLine() ?? "";
+                    switch (ch)
+                    {
+                        case "1":
+                            userOrderHistory(uName);
+                            break;
+                        case "2":
+                            userRideHistory(uName);
+                            break;
+                        case "3":
+                            userInterface(uName);
+                            break;
+                        default:
+                            Console.WriteLine("Invalid choice. Please try again.");
+                            Thread.Sleep(1000);
+                            userInterface(uName);
+                            break;
+                    }
+                    break;
+                case "6":
+                    passChanger.changePass($"Users/{uName}.txt");
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice. Please try again.");
+                    Thread.Sleep(1000);
+                    userInterface(uName);
+                    break;
 
             }
         }
@@ -68,19 +68,19 @@ namespace RiDelivery
         {
             Console.Clear();
             string fileName = $"Users/Rides/{userName}_RideHistory.txt";
-            if(File.Exists(fileName))
+            if (File.Exists(fileName))
             {
-            using (StreamReader sr = new StreamReader(fileName))
-            {
-                string parts = sr.ReadToEnd();
-                Console.WriteLine(parts);
-            }
+                using (StreamReader sr = new StreamReader(fileName))
+                {
+                    string parts = sr.ReadToEnd();
+                    Console.WriteLine(parts);
+                }
 
-            Console.WriteLine("Press any key to go back...");
-            if(Console.ReadKey() != null)
-            {
-                userInterface(userName);
-            }
+                Console.WriteLine("Press any key to go back...");
+                if (Console.ReadKey() != null)
+                {
+                    userInterface(userName);
+                }
             }
             else
             {
@@ -92,32 +92,95 @@ namespace RiDelivery
 
         public static void userOrderHistory(string userName)
         {
-            Console.Clear();
-            string fileName = $"Users/Orders/{userName}_OrderHistory.txt";
-            if(File.Exists(fileName))
-            {
-            using (StreamReader sr = new StreamReader(fileName))
-            {
-                string parts = sr.ReadToEnd();
-                Console.WriteLine(parts);
-            }
 
-            Console.WriteLine("Press any key to go back...");
-            if(Console.ReadKey() != null)
+            Console.Clear();
+            Console.WriteLine("1. Restaurant Order History \n2. Grocery Order History \n3. Go Back");
+            Console.Write("Enter your choice: ");
+            string choice = Console.ReadLine() ?? "";
+            switch (choice)
             {
-                userInterface(userName);
+                case "1":
+                    Console.Clear();
+                    string rfileName = $"Users/Orders/{userName}_OrderHistory.txt";
+                    if (File.Exists(rfileName))
+                    {
+                        using (StreamReader sr = new StreamReader(rfileName))
+                        {
+                            string parts = sr.ReadToEnd();
+                            Console.WriteLine(parts);
+                        }
+
+                        Console.WriteLine("Press any key to go back...");
+                        if (Console.ReadKey() != null)
+                        {
+                            userInterface(userName);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No Orders History!");
+                        Thread.Sleep(1500);
+                        userInterface(userName);
+                    }
+                    break;
+                case "2":
+                    Console.Clear();
+                    string sfileName = $"Users/ShopOrders/{userName}_OrderHistory.txt";
+                    if (File.Exists(sfileName))
+                    {
+                        using (StreamReader sr = new StreamReader(sfileName))
+                        {
+                            string parts = sr.ReadToEnd();
+                            Console.WriteLine(parts);
+                        }
+
+                        Console.WriteLine("Press any key to go back...");
+                        if (Console.ReadKey() != null)
+                        {
+                            userInterface(userName);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No Orders History!");
+                        Thread.Sleep(1500);
+                        userInterface(userName);
+                    }
+                    break;
+                case "3":
+                    userInterface(userName);
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice. Please try again.");
+                    Thread.Sleep(1000);
+                    userOrderHistory(userName);
+                    break;
             }
-            }
-            else
-            {
-                Console.WriteLine("No Orders History!");
-                Thread.Sleep(1500);
-                userInterface(userName);
-            }
+            // string fileName = $"Users/Orders/{userName}_OrderHistory.txt";
+            // if(File.Exists(fileName))
+            // {
+            // using (StreamReader sr = new StreamReader(fileName))
+            // {
+            //     string parts = sr.ReadToEnd();
+            //     Console.WriteLine(parts);
+            // }
+
+            // Console.WriteLine("Press any key to go back...");
+            // if(Console.ReadKey() != null)
+            // {
+            //     userInterface(userName);
+            // }
+            // }
+            // else
+            // {
+            //     Console.WriteLine("No Orders History!");
+            //     Thread.Sleep(1500);
+            //     userInterface(userName);
+            // }
         }
 
 
 
-        
+
     }
 }
